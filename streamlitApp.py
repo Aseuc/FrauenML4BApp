@@ -6,6 +6,20 @@ import sklearn as sk
 from io import StringIO
 
 d = None
+colacc_x, colacc_y, colacc_z = st.columns(3)
+colgrav_x, colgrav_y, colgrav_z = st.columns(3)
+colgyro_x, colgyro_y, colgyro_z = st.columns(3)
+acc_x = colacc_x.checkbox("acc_x verbergen")
+acc_y = colacc_y.checkbox('acc_y verbergen')
+acc_z = colacc_z.checkbox('acc_z verbergen')
+
+grav_x = colgrav_x.checkbox('gravity_x verbergen')
+grav_y = colgrav_y.checkbox('gravity_y verbergen')
+grav_z = colgrav_z.checkbox('gravity_z verbergen')
+gyro_x = colgyro_x.checkbox('gyro_x verbergen')
+gyro_y = colgyro_y.checkbox('gyro_y verbergen')
+gyro_z = colgyro_z.checkbox('gyro_z verbergen')
+
 max_files = 3
 dfs = []
 merged_df2 = None
@@ -58,11 +72,70 @@ if uploaded_files is not None:
         html = f"""<style> table{{font-size:15px; margin-left:auto; margin-right:auto;}}</style>{html}"""
         # st.write(html,unsafe_allow_html=True)
         st.write("Acceleratoren Daten:")
-        st.line_chart(dfs[0])
+        if acc_z and acc_y and acc_z:
+            st.write("Nix zu zeigen!")
+        elif acc_x and acc_y:
+            st.line_chart(dfs[0].drop(columns=['acc_x', 'acc_y']))
+        elif acc_x and acc_z:
+            st.line_chart(dfs[0].drop(columns=['acc_x', 'acc_z']))
+        elif acc_z and acc_y:
+            st.line_chart(dfs[0].drop(columns=['acc_y', 'acc_z']))
+        elif acc_y:
+            st.line_chart(dfs[0].drop('acc_y', axis=1))
+        elif acc_x:
+            st.line_chart(dfs[0].drop('acc_x', axis=1))
+        elif acc_z:
+            st.line_chart(dfs[0].drop('acc_z', axis=1))
+        else:
+            st.line_chart(dfs[0])
+        # elif acc_y:
+        #     st.line_chart(dfs[0].drop('acc_y',axis=))
+        dfs1 = 1
+        gy = "gravity_y"
+        gz = "gravity_z"
+        gx = "gravity_x"
         st.write("Gravity Daten:")
-        st.line_chart(dfs[1])
+        if grav_x and grav_y and grav_z:
+            st.write("Nix zu zeigen!")
+            # st.line_chart(dfs[dfs1].drop(columns=[gy, gz, gx]))
+        elif grav_x and grav_y:
+            st.line_chart(dfs[dfs1].drop(columns=[gy, gx]))
+        elif grav_x and grav_z:
+            st.line_chart(dfs[dfs1].drop(columns=[gx, gz]))
+        elif grav_z and grav_y:
+            st.line_chart(dfs[dfs1].drop(columns=[gz, gy]))
+        elif grav_y:
+            st.line_chart(dfs[dfs1].drop(gy, axis=1))
+        elif grav_x:
+            st.line_chart(dfs[dfs1].drop(gx, axis=1))
+        elif grav_z:
+            st.line_chart(dfs[dfs1].drop(gz, axis=1))
+        else:
+            st.line_chart(dfs[dfs1])
+
+        grx = "gyro_x"
+        gry = "gyro_y"
+        grz = "gyro_z"
+        dfs2 = 2
         st.write("Gyrosscope Daten:")
-        st.line_chart(dfs[2])
+        if gyro_x and gyro_y and gyro_z:
+            st.write("Nix zu zeigen!")
+            # st.line_chart(dfs[dfs1].drop(columns=[gy, gz, gx]))
+        elif gyro_x and gyro_y:
+            st.line_chart(dfs[dfs2].drop(columns=[gry, grx]))
+        elif gyro_x and gyro_z:
+            st.line_chart(dfs[dfs2].drop(columns=[grx, grz]))
+        elif gyro_z and gyro_y:
+            st.line_chart(dfs[dfs2].drop(columns=[grz, gry]))
+        elif gyro_y:
+            st.line_chart(dfs[dfs2].drop(gry, axis=1))
+        elif gyro_x:
+            st.line_chart(dfs[dfs2].drop(grx, axis=1))
+        elif gyro_z:
+            st.line_chart(dfs[dfs2].drop(grz, axis=1))
+        else:
+            st.line_chart(dfs[dfs2])
+
     else:
         pass
 if dfs:
