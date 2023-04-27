@@ -13,8 +13,8 @@ max_files = 3
 dfs = []
 merged_df2 = None
 uploaded_files = st.file_uploader(
-    "3 Dateien des Sensor Loggers bitte hochladen in folgender Reihenfolge: Acceleratoren-, Gyrosscope- und "
-    "Gravitydaten!:",
+    "3 Dateien des Sensor Loggers bitte hochladen in folgender Reihenfolge: Acceleratoren-, "
+    "Gravitydaten und Gyrosscopedaten!:",
     type={"csv"},
     accept_multiple_files=True)
 i = 1
