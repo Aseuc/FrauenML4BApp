@@ -155,3 +155,54 @@ if dfs:
     result = pd.DataFrame({'Vorhersage':pred1})
     merged_df3 = pd.merge(merged_df2,result,left_index=True, right_index=True)
     st.write(merged_df3)
+
+  merged_df3Download = None
+barDF = None
+if dfs:
+    "Dataframe mit Vorhersagen:"
+    data = pd.read_excel('C:/Users/busse/OneDrive/Desktop/rennengehenstreamlit/streamlit-main/TestDataFinalCorrected'
+                         '.xlsx')
+    df = pd.DataFrame(data)
+    shuffled_df = df.sample(frac=1)
+    # st.write(df)
+    np.random.seed(42)
+    X = shuffled_df.drop('target', axis=1)
+    y = shuffled_df["target"]
+    # st.write(y)
+    X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.5)
+    clf = RandomForestClassifier(n_estimators=100)
+    clf.fit(X, y)
+    pred1 = clf.predict(merged_df2)
+    result = pd.DataFrame({'Vorhersage': pred1})
+    merged_df3 = pd.merge(merged_df2, result, left_index=True, right_index=True)
+    merged_df3Download = merged_df3
+    barDF = merged_df3
+    st.write(merged_df3)
+
+buffer = io.BytesIO()
+@st.cache_data
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+
+# st.markdown("""<href>.st-bb{margin-right:0px}</style>""", unsafe_allow_html=True)
+
+options = ["CSV", "xlsx"]
+filetype = st.selectbox("Wähle Dateiart für den Download:", options)
+
+if filetype == "CSV":
+    csv = convert_df(merged_df3Download)
+
+    b1 = st.download_button(
+        label="Download CSV",
+        data=csv,
+        file_name='MovementPrediction.csv',
+        mime='text/csv',
+    )
+elif filetype == "xlsx":
+    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+        merged_df3Download.to_excel(writer, sheet_name="Sheet1", index=False)
+        writer.save()
+        download2 = st.download_button(label="Download xlsx", data=buffer, file_name="MovementPrediction.xlsx",
+                                       mime='application/vnd.ms-excel')
