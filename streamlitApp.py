@@ -72,6 +72,10 @@ if uploaded_files is not None:
         html = f"""<style> table{{font-size:15px; margin-left:auto; margin-right:auto;}}</style>{html}"""
         # st.write(html,unsafe_allow_html=True)
         st.write("Acceleratoren Daten:")
+        colacc_x, colacc_y, colacc_z = st.columns(3)
+        acc_x = colacc_x.checkbox("acc_x verbergen")
+        acc_y = colacc_y.checkbox('acc_y verbergen')
+        acc_z = colacc_z.checkbox('acc_z verbergen')
         if acc_z and acc_y and acc_z:
             st.write("Nix zu zeigen!")
         elif acc_x and acc_y:
@@ -95,6 +99,11 @@ if uploaded_files is not None:
         gz = "gravity_z"
         gx = "gravity_x"
         st.write("Gravity Daten:")
+        colgrav_x, colgrav_y, colgrav_z = st.columns(3)
+        grav_x = colgrav_x.checkbox('gravity_x verbergen')
+        grav_y = colgrav_y.checkbox('gravity_y verbergen')
+        grav_z = colgrav_z.checkbox('gravity_z verbergen')
+
         if grav_x and grav_y and grav_z:
             st.write("Nix zu zeigen!")
             # st.line_chart(dfs[dfs1].drop(columns=[gy, gz, gx]))
@@ -118,6 +127,10 @@ if uploaded_files is not None:
         grz = "gyro_z"
         dfs2 = 2
         st.write("Gyrosscope Daten:")
+        colgyro_x, colgyro_y, colgyro_z = st.columns(3)
+        gyro_x = colgyro_x.checkbox('gyro_x verbergen')
+        gyro_y = colgyro_y.checkbox('gyro_y verbergen')
+        gyro_z = colgyro_z.checkbox('gyro_z verbergen')
         if gyro_x and gyro_y and gyro_z:
             st.write("Nix zu zeigen!")
             # st.line_chart(dfs[dfs1].drop(columns=[gy, gz, gx]))
