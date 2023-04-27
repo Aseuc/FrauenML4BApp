@@ -161,7 +161,7 @@ merged_df3Download = None
 barDF = None
 if dfs:
     "Dataframe mit Vorhersagen:"
-    data = pd.read_excel('TestDataFinalCorrected.xlsx')
+    data = pd.read_excel('pages/TestDataFinalCorrected.xlsx')
     df = pd.DataFrame(data)
     shuffled_df = df.sample(frac=1)
     # st.write(df)
