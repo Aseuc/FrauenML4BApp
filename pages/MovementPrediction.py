@@ -181,29 +181,30 @@ if dfs:
     st.write(merged_df3)
 
 buffer = io.BytesIO()
-@st.cache
+
+@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode('utf-8')
 
 
 # st.markdown("""<href>.st-bb{margin-right:0px}</style>""", unsafe_allow_html=True)
+if merged_df3Download is not None:
+    options = ["CSV", "xlsx"]
+    filetype = st.selectbox("Wähle Dateiart für den Download:", options)
 
-options = ["CSV", "xlsx"]
-filetype = st.selectbox("Wähle Dateiart für den Download:", options)
+    if filetype == "CSV":
+        csv = convert_df(merged_df3Download)
 
-if filetype == "CSV":
-    csv = convert_df(merged_df3Download)
-
-    b1 = st.download_button(
-        label="Download CSV",
-        data=csv,
-        file_name='MovementPrediction.csv',
-        mime='text/csv',
-    )
-elif filetype == "xlsx":
-    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-        merged_df3Download.to_excel(writer, sheet_name="Sheet1", index=False)
-        writer.save()
-        download2 = st.download_button(label="Download xlsx", data=buffer, file_name="MovementPrediction.xlsx",
-                                       mime='application/vnd.ms-excel')
+        b1 = st.download_button(
+            label="Download CSV",
+            data=csv,
+            file_name='MovementPrediction.csv',
+            mime='text/csv',
+        )
+    elif filetype == "xlsx":
+        with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            merged_df3Download.to_excel(writer, sheet_name="Sheet1", index=False)
+            writer.save()
+            download2 = st.download_button(label="Download xlsx", data=buffer, file_name="MovementPrediction.xlsx",
+                                           mime='application/vnd.ms-excel')
