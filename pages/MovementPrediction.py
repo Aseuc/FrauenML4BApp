@@ -140,22 +140,6 @@ if uploaded_files is not None:
 
     else:
         pass
-if dfs:
-    data = pd.read_excel('TestDataFinal.xlsx')
-    df = pd.DataFrame(data)
-    shuffled_df = df.sample(frac=1)
-    # st.write(df)
-    np.random.seed(42)
-    X = shuffled_df.drop('target', axis=1)
-    y = shuffled_df["target"]
-    # st.write(y)
-    X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.5)
-    clf = RandomForestClassifier(n_estimators=100)
-    clf.fit(X, y)
-    pred1 = clf.predict(merged_df2)
-    result = pd.DataFrame({'Vorhersage':pred1})
-    merged_df3 = pd.merge(merged_df2,result,left_index=True, right_index=True)
-    st.write(merged_df3)
 
 merged_df3Download = None
 barDF = None
