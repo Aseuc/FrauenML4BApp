@@ -6,19 +6,7 @@ import sklearn as sk
 from io import StringIO
 
 d = None
-colacc_x, colacc_y, colacc_z = st.columns(3)
-colgrav_x, colgrav_y, colgrav_z = st.columns(3)
-colgyro_x, colgyro_y, colgyro_z = st.columns(3)
-acc_x = colacc_x.checkbox("acc_x verbergen")
-acc_y = colacc_y.checkbox('acc_y verbergen')
-acc_z = colacc_z.checkbox('acc_z verbergen')
 
-grav_x = colgrav_x.checkbox('gravity_x verbergen')
-grav_y = colgrav_y.checkbox('gravity_y verbergen')
-grav_z = colgrav_z.checkbox('gravity_z verbergen')
-gyro_x = colgyro_x.checkbox('gyro_x verbergen')
-gyro_y = colgyro_y.checkbox('gyro_y verbergen')
-gyro_z = colgyro_z.checkbox('gyro_z verbergen')
 
 max_files = 3
 dfs = []
