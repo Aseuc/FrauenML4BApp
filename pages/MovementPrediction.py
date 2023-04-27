@@ -156,7 +156,7 @@ if dfs:
     merged_df3 = pd.merge(merged_df2,result,left_index=True, right_index=True)
     st.write(merged_df3)
 
-  merged_df3Download = None
+merged_df3Download = None
 barDF = None
 if dfs:
     "Dataframe mit Vorhersagen:"
