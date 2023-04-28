@@ -7,8 +7,6 @@ from io import StringIO
 import io
 
 d = None
-
-
 max_files = 3
 dfs = []
 merged_df2 = None
