@@ -51,28 +51,28 @@ if dfs:
     data = pd.read_excel('MicroDataLabled.xlsx')
     df = pd.DataFrame(data)
     shuffled_df = df.sample(frac=1)
-    # st.write(df)
-    np.random.seed(42)
-    X = shuffled_df.drop('target', axis=1)
-    y = shuffled_df["target"]
-    # st.write(y)
-    clf = None
-    file = "savedmodel.sav"
-    load_model = pickle.load(open(file, 'rb'))
-    pred1 = None
-    if load_model is None:
-        X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.2)
-        clf = RandomForestClassifier(n_estimators=100)
-        clf.fit(X_train, y_train)
-        filename = 'newFile.sav'
-        pickle.dump(clf, open(filename, 'wb'))
-        pred1 = clf.predict(merged_df2)
-    else:
-        pred1 = load_model.predict(merged_df2)
+    st.write(df)
+    # np.random.seed(42)
+    # X = shuffled_df.drop('target', axis=1)
+    # y = shuffled_df["target"]
+    # # st.write(y)
+    # clf = None
+    # file = "savedmodel.sav"
+    # load_model = pickle.load(open(file, 'rb'))
+    # pred1 = None
+    # if load_model is None:
+    #     X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.2)
+    #     clf = RandomForestClassifier(n_estimators=100)
+    #     clf.fit(X_train, y_train)
+    #     filename = 'newFile.sav'
+    #     pickle.dump(clf, open(filename, 'wb'))
+    #     pred1 = clf.predict(merged_df2)
+    # else:
+    #     pred1 = load_model.predict(merged_df2)
 
-    result = pd.DataFrame({'Vorhersage': pred1})
-    merged_df3 = pd.merge(merged_df2, result, left_index=True, right_index=True)
-    merged_df3Download = merged_df3
+    # result = pd.DataFrame({'Vorhersage': pred1})
+    # merged_df3 = pd.merge(merged_df2, result, left_index=True, right_index=True)
+    # merged_df3Download = merged_df3
 
 
 
