@@ -169,7 +169,7 @@ if dfs:
     y = shuffled_df["target"]
     # st.write(y)
     clf = None
-    file = "pages/savedmodel.sav"
+    file = "savedmodel.sav"
     load_model = pickle.load(open(file, 'rb'))
     pred1 = None
     if load_model is None:
