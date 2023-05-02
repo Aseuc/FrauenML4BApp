@@ -160,7 +160,7 @@ def trainModelOnAccData():
 
 if dfs:
     "Dataframe mit Vorhersagen:"
-    data = pd.read_excel('pages/TestDataFinalCorrected.xlsx')
+    data = pd.read_excel('TestDataFinalCorrected.xlsx')
     df = pd.DataFrame(data)
     shuffled_df = df.sample(frac=1)
     # st.write(df)
