@@ -13,12 +13,11 @@ import altair as alt
 
 
 d = None
-max_files = 3
+max_files = 1
 dfs = []
 merged_df2 = None
 uploaded_files = st.file_uploader(
-    "3 Dateien des Sensor Loggers bitte hochladen in folgender Reihenfolge: Acceleratoren-, "
-    "Gravitydaten und Gyrosscopedaten!:",
+    "Lade eine Microphone.csv aus deiner Sensor Logger App hoch!",
     type={"csv"},
     accept_multiple_files=True)
 i = 1
@@ -28,26 +27,26 @@ if uploaded_files is not None:
         st.write(f'Datei Nr. {i}:', up.name)
         i = i + 1
     if len(uploaded_files) > max_files:
-        st.error(f'Bitte lade nicht mehr als 3 Dateien hoch!')
+        st.error(f'Bitte lade nicht mehr als 1 Dateien hoch!')
     elif len(uploaded_files) < max_files:
-        st.error(f'Bitte lade mindestens 3 Dateien hoch!')
+        st.error(f'Bitte lade mindestens 1 Dateien hoch!')
     else:
 
         for uploaded_file in uploaded_files:
             string_data = StringIO(uploaded_file.getvalue().decode("utf-8"))
             df = pd.read_csv(string_data)
             df1 = pd.DataFrame(df)
-            df1 = df1.drop(columns=['time', 'seconds_elapsed'])
+            """ df1 = df1.drop(columns=['time', 'seconds_elapsed']) """
             # st.write("df1")
             # st.write(df1)
-            if counter == 0:
+            """ if counter == 0:
                 df1 = df1.rename(columns={'z': 'acc_z', 'y': 'acc_y', 'x': 'acc_x'})
             elif counter == 1:
                 df1 = df1.rename(columns={'z': 'gravity_z', 'y': 'gravity_y', 'x': 'gravity_x'})
             elif counter == 2:
-                df1 = df1.rename(columns={'z': 'gyro_z', 'y': 'gyro_y', 'x': 'gyro_x'})
+                df1 = df1.rename(columns={'z': 'gyro_z', 'y': 'gyro_y', 'x': 'gyro_x'}) """
 
-            counter = counter + 1
+            """ counter = counter + 1 """
             dfs.append(df1)
 
             # merged_df = pd.merge(dfs[0],dfs[1],left_index=True, right_index=True)
