@@ -44,4 +44,6 @@ if uploaded_files is not None:
             # st.write(merged_df)
         pass
 
+if dfs: 
+    st.write(dfs[0])
    
