@@ -150,7 +150,7 @@ barDF = None
 
 
 def trainModelOnAccData():
-    acc_data = pd.read_excel('/pages/AcceleratorTrainingsData.xlsx')
+    acc_data = pd.read_excel('AcceleratorTrainingsData.xlsx')
     acc_df = pd.DataFrame(data)
     acc_df_sample = df.sample(frac=1)
     # st.write(df)
@@ -161,7 +161,7 @@ def trainModelOnAccData():
 
 if dfs:
     "Dataframe mit Vorhersagen:"
-    data = pd.read_excel('pages/TestDataFinalCorrected.xlsx')
+    data = pd.read_excel('TestDataFinalCorrected.xlsx')
     df = pd.DataFrame(data)
     shuffled_df = df.sample(frac=1)
     # st.write(df)
@@ -170,7 +170,7 @@ if dfs:
     y = shuffled_df["target"]
     # st.write(y)
     clf = None
-    file = "pages/savedmodel.sav"
+    file = "savedmodel.sav"
     load_model = pickle.load(open(file, 'rb'))
     pred1 = None
     if load_model is None:
