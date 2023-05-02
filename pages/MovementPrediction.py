@@ -5,6 +5,12 @@ from sklearn.ensemble import RandomForestClassifier
 import sklearn as sk
 from io import StringIO
 import io
+import pickle
+from sklearn import datasets
+from sklearn import svm
+import altair as alt
+from bokeh.plotting import figure
+import plotly.figure_factory as ff
 
 d = None
 max_files = 3
@@ -141,6 +147,18 @@ if uploaded_files is not None:
 
 merged_df3Download = None
 barDF = None
+
+
+def trainModelOnAccData():
+    acc_data = pd.read_excel('/pages/AcceleratorTrainingsData.xlsx')
+    acc_df = pd.DataFrame(data)
+    acc_df_sample = df.sample(frac=1)
+    # st.write(df)
+    np.random.seed(42)
+    X = shuffled_df.drop('target', axis=1)
+    y = shuffled_df["target"]
+
+
 if dfs:
     "Dataframe mit Vorhersagen:"
     data = pd.read_excel('pages/TestDataFinalCorrected.xlsx')
@@ -151,17 +169,60 @@ if dfs:
     X = shuffled_df.drop('target', axis=1)
     y = shuffled_df["target"]
     # st.write(y)
-    X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.2)
-    clf = RandomForestClassifier(n_estimators=100)
-    clf.fit(X, y)
-    pred1 = clf.predict(merged_df2)
+    clf = None
+    file = "C:/Users/busse/PycharmProjects/FrauenML4BApp/savedmodel.sav"
+    load_model = pickle.load(open(file, 'rb'))
+    pred1 = None
+    if load_model is None:
+        X_train, X_test, y_train, y_test = sk.model_selection.train_test_split(X, y, test_size=0.2)
+        clf = RandomForestClassifier(n_estimators=100)
+        clf.fit(X_train, y_train)
+        filename = 'newFile.sav'
+        pickle.dump(clf, open(filename, 'wb'))
+        pred1 = clf.predict(merged_df2)
+    else:
+        pred1 = load_model.predict(merged_df2)
+
     result = pd.DataFrame({'Vorhersage': pred1})
     merged_df3 = pd.merge(merged_df2, result, left_index=True, right_index=True)
     merged_df3Download = merged_df3
     barDF = merged_df3
     st.write(merged_df3)
+    drop_col_for_select = merged_df3.drop(
+        columns=["acc_y", "acc_x", "acc_z", "gyro_z", "gyro_x", "gyro_y", "gravity_z", "gravity_y", "gravity_x"])
+    select_x1 = drop_col_for_select.loc[merged_df3['Vorhersage'] == "rennend"]
+    select_x2 = drop_col_for_select.loc[merged_df3['Vorhersage'] == "stehend"]
+    select_x3 = drop_col_for_select.loc[merged_df3['Vorhersage'] == "fallend"]
+
+    x1 = select_x1.count()
+    x2 = select_x2.count()
+    x3 = select_x3.count()
+
+    x1_rename = x1.rename(index={'Vorhersage': 'rennend'})
+    x2_rename = x2.rename(index={'Vorhersage': "stehend"})
+    x3_rename = x3.rename(index={'Vorhersage': 'fallend'})
+    colx1, colx2, colx3 = st.columns(3)
+    colx1.write(x1_rename)
+    colx2.write(x2_rename)
+    colx3.write(x3_rename)
+
+    # st.write(x1_rename)
+    # st.write(x2_rename)
+    # st.write(x3_rename)
+
+    # seriesx1 = pd.list(select_x1).value_counts()
+    # seriesx2 = pd.List(select_x2).value_counts()
+    # seriesx3 = pd.List(select_x3).value_counts()
+
+
+    # hist_data = [seriesx1,seriesx2,seriesx3]
+    # group_labels = ['Stehend', 'Falled', 'Rennend']
+    # fig = ff.create_distplot(hist_data, group_labels)
+    #
+    # st.plotly_chart(fig, use_container_width=True)
 
 buffer = io.BytesIO()
+
 
 @st.cache_data
 def convert_df(df):
