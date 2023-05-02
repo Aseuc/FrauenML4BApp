@@ -53,7 +53,7 @@ if uploaded_files is not None:
             # st.write(merged_df)
         pass
 
-    if dfs:
+    """ if dfs:
         # st.write(dfs[0])
         # st.write(dfs[1])
         # st.write(dfs[2])
@@ -61,7 +61,7 @@ if uploaded_files is not None:
         # st.write(merged_df)
         merged_df2 = pd.merge(merged_df, dfs[2], left_index=True, right_index=True)
         html = merged_df2.to_html()
-        html = f"""<style> table{{font-size:15px; margin-left:auto; margin-right:auto;}}</style>{html}"""
+ 
         # st.write(html,unsafe_allow_html=True)
         st.write("Acceleratoren Daten:")
         colacc_x, colacc_y, colacc_z = st.columns(3)
@@ -203,7 +203,7 @@ if dfs:
     colx1, colx2, colx3 = st.columns(3)
     colx1.write(x1_rename)
     colx2.write(x2_rename)
-    colx3.write(x3_rename)
+    colx3.write(x3_rename) """
 
     # st.write(x1_rename)
     # st.write(x2_rename)
@@ -220,7 +220,7 @@ if dfs:
     #
     # st.plotly_chart(fig, use_container_width=True)
 
-buffer = io.BytesIO()
+""" buffer = io.BytesIO()
 
 
 @st.cache_data
@@ -228,7 +228,7 @@ def convert_df(df):
     return df.to_csv().encode('utf-8')
 
 
-# st.markdown("""<href>.st-bb{margin-right:0px}</style>""", unsafe_allow_html=True)
+
 if merged_df3Download is not None:
     options = ["CSV", "xlsx"]
     filetype = st.selectbox("Wähle Dateiart für den Download:", options)
@@ -247,4 +247,4 @@ if merged_df3Download is not None:
             merged_df3Download.to_excel(writer, sheet_name="Sheet1", index=False)
             writer.save()
             download2 = st.download_button(label="Download xlsx", data=buffer, file_name="MovementPrediction.xlsx",
-                                           mime='application/vnd.ms-excel')
+                                           mime='application/vnd.ms-excel') """
