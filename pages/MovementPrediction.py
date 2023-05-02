@@ -9,8 +9,7 @@ import pickle
 from sklearn import datasets
 from sklearn import svm
 import altair as alt
-from bokeh.plotting import figure
-import plotly.figure_factory as ff
+
 
 d = None
 max_files = 3
