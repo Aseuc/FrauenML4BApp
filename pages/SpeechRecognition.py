@@ -9,6 +9,9 @@ import speech_recognition as sr
 from os import path
 from pydub import AudioSegment
 import io
+
+
+
 d = None
 max_files = 1
 file_type = ""
