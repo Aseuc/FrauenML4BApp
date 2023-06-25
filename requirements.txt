@@ -3,7 +3,7 @@ openpyxl
 SpeechRecognition
 pydub
 matplotlib
-numpy
+numpy==1.24
 wave
 pandas
 tensorflow
