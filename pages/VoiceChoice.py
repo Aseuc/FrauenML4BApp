@@ -23,9 +23,6 @@ from sklearn.model_selection import train_test_split as ts
 from scipy.io import wavfile
 import librosa
 from sklearn.svm import SVC as svc
-from tsfresh import extract_relevant_features
-from tsfresh.examples.robot_execution_failures import load_robot_execution_failures
-from tsfresh import extract_features
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from openpyxl import Workbook
